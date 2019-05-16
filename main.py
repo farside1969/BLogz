@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:LaunchCode@localhost:8889/build-a-blog'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Blogz:LaunchCode@localhost:8889/blogz'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'f8wv3w2f>v9j4sEuhcNYydAGMzzZJgkGgyHE9gUqaJcCk^f*^o7fQyBT%XtTvcYM'
@@ -13,12 +13,15 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150))
     body = db.Column(db.String(750))
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, title, body, title_error, body_error ):
+
+    def __init__(self, title, body, title_error, body_error, owner ):
         self.title = title
         self.body = body
         self.title_error = title_error
         self.body_error = body_error
+        self.owner = owner
 
     #validate
     def title_valid(self):
@@ -32,6 +35,16 @@ class Blog(db.Model):
             return True
         else:
             return False
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(120), unique=True)
+    password = db.Column(db.String(120))
+    blogs = db.relationship('Blog', backref='owner')
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
 
 #display entry redirect
 @app.route("/")
@@ -59,21 +72,24 @@ def new_entry():
         title_error = "Title must be typed here"
         body_error = "Beans must be spilled here"
         new_entry_body = request.form['body']
-        new_entry = Blog(new_entry_title, new_entry_body, title_error, body_error)
+        owner = request.form['owner']
+        new_entry = Blog(new_entry_title, new_entry_body, title_error, body_error, owner)
 
         if not new_entry.title_valid():
             return render_template('new_entry_form.html',
                 title="Create new blog entry",
                 new_entry_title=new_entry_title,
                 new_entry_body=new_entry_body,
-                title_error=title_error)
+                title_error=title_error,
+                owner=owner)
 
         if not new_entry.body_valid():
             return render_template('new_entry_form.html',
                 title="Create new blog entry",
                 new_entry_title=new_entry_title,
                 new_entry_body=new_entry_body,
-                body_error=body_error)
+                body_error=body_error,
+                owner=owner)
 
         if new_entry.body_valid() and new_entry.title_valid():
                 db.session.add(new_entry)
