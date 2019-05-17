@@ -3,30 +3,40 @@
 {% block content %}
     
     {% if session['logged_in'] %}
-    <h1>New Blog:</h1>
+        <h1>
+            New BLoG:
+        </h1>
         <form action="/newblog" method='post'>
             <label>
-                New Blog Title:
-                    <input id='blog_name' type='text' name='blog_name' />
+                BLoG Title:
+                <input id='blog_name' type='text' name='blog_name' />
             </label>
             <div>
             </div>
                 {% if title_error %}
-                    <p class = "error">{{title_error}}</p>
+                    <p class = "error">
+                        {{title_error}}
+                    </p>
                 {% endif %}
 
-        <hr />
+            <hr />
 
             <label>
-                New Blog:
-                    <textarea id='blog' name='blog' ></textarea>
+                BLoG here:
+                <textarea id='blog' name='blog' >
+
+                </textarea>
             </label>
             {% if body_error %}
-                <p class = "error">{{body_error}}</p>
+                <p class = "error">
+                    {{body_error}}
+                </p>
             {% endif %}
-            <input type='submit' value='Finished' />
+            <input type='submit' value='Post It' />
         </form>
     {% else %}
-        <a href="/login.html">Please Log In!</a>
+        <a href="/login.html">
+            Please Log In
+        </a>
     {% endif %}
 {% endblock %}

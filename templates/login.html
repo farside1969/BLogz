@@ -1,18 +1,23 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-    <title>Login page</title>
-
-<h1>Please sign in</h1>
-
-    <form method="post" action="/login"/>
-        <input type='text' placeholder='Username' name='username' value='{{request.form.username}}'>
-        <div>
-        <input type='password' placeholder='Password' name='password' value='{{request.form.password}}'>
-        </div><div>
-        <button type="submit">Sign in</button>
-</div>
-
-    </form>
+<title>
+    Realm of Logging In
+</title>
+<h1>
+    Please Log Your In
+</h1>
+<form method="post" action="/login">
+    <input type='text' placeholder='BLoGger Name' name='username' value='{{request.form.username}}'/>
+    <div>
+        <input type='password' placeholder='Password' name='password' value='{{request.form.password}}'/>
+    </div>
+    <div>
+        <button type="submit">
+            Log Me
+        </button>
+    </div>
+</form>
 
 {% endblock %}
