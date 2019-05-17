@@ -66,9 +66,9 @@ def login():
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter(User.username == username).first()
-        print(user)
-        print(user.password)
-        print(password)
+#        print(user)
+#        print(user.password)
+#        print(password)
 
         if user.password == password:
             session['logged_in'] = True
@@ -91,15 +91,15 @@ def register():
     email_error = None
 
     if request.method == 'POST':
-        print(type(request.form))
+#        print(type(request.form))
         email = request.form['email']
         password = request.form['password']
         verify = request.form['verify']
         username = request.form['username']
         existing_user = User.query.filter_by(email=email).first()
         existing_username = User.query.filter_by(username=username).first()
-        print(existing_user)
-        print(existing_username)
+#        print(existing_user)
+#        print(existing_username)
 
         if not existing_user and not existing_username:
             new_user = User(username, password, email)
@@ -121,7 +121,7 @@ def index3():
     if request.method == 'POST':
         title = request.form['blog_name']
         body = request.form['blog']
-        print(body)
+#        print(body)
 
         if title.strip(' ') == "":
             title_error = "Please enter a title"
