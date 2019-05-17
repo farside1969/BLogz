@@ -1,42 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Bloggys Blog for Bloggers who Blog like Blogging Bloggers that Blog</h1>
-    <form method='post'>
-        <label>
-            New Post:
-            <input type="text" name='post' />
-        </label>
-        <input type="submit" value='Add New Post' />
-    </form>
 
-    <hr />
+    {% if session['logged_in'] %}
+        <h1>Welcome to {{ user.username }} Sandbox</h1>
 
-    {% if tasks|length == 0 %}
-    <p>No posts yet</p>
+        <nav>
+        <a href="/logout">Logout</a>
+        </nav>
+        <nav>
+        <a href="/newblog">New Blog Post</a>
+        </nav>
     {% else %}
-
-        <ul>
-            {% for task in tasks %}
-            <li>{{task.name}}
-                <form method="POST" action="/delete-task" style="display:inline-block;">
-                    <input type="hidden" name="task-id" value="{{task.id}}" />
-                    <input type="submit" value="Done!" />
-                </form>
-            </li>
-            {% endfor %}
-        </ul>
+        <h1>Welcome to the Sandbox</h1>
+        <nav>
+        <a href="/signup">Register</a>
+        <div>
+        <a href="/login">Login</a>
+        </div>
+        </nav>
 
     {% endif %}
 
-    <hr />
 
-    <h2>Blog Listings</h2>
-
+    {% if session['logged_in'] %}
+    <h2>My Previous Blogs</h2>
     <ul>
-        {% for task in completed_tasks %}
-        <li>{{task.name}}</li>
-        {% endfor %}
-    </ul>
+    {% for blog in blogs %}
+    <li>
+
+        <a href="/blog/{{blog.id}}/">{{blog.name}}</a>
+        <p>Author:{{ session['username'] }}</p>
+    </li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if not session["logged_in"] %}
+        <h2>Recent Blogs</h2>
+        <hr>
+    {% for blog in data_tuples %}
+
+    <a href="/blog/{{blog[1]}}/">{{blog[0]}}</a>
+    <p>Author:{{ blog[2] }}</p>
+
+    {% endfor %}
+    {% endif %}
 
 {% endblock %}

@@ -1,23 +1,18 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h1>Log in to Bloggys Blog for Bloggers who Blog like Blogging Bloggers that Blog</h1>
-<p>If you don't have an account, you may <a href="/register">register</a> here</p>
-<form action="/login" method="post">
-    <table>
-        <tr>
-            <td><label for="email">Email</label></td>
-            <td>
-                <input name="email" type="email" value="{{ email }}">
-            </td>
-        </tr>
-        <tr>
-            <td><label for="password">Password</label></td>
-            <td>
-                <input name="password" type="password">
-            </td>
-        </tr>
-    </table>
-    <input type="submit" value="Login">
-</form>
+
+    <title>Login page</title>
+
+<h1>Please sign in</h1>
+
+    <form method="post" action="/login"/>
+        <input type='text' placeholder='Username' name='username' value='{{request.form.username}}'>
+        <div>
+        <input type='password' placeholder='Password' name='password' value='{{request.form.password}}'>
+        </div><div>
+        <button type="submit">Sign in</button>
+</div>
+
+    </form>
+
 {% endblock %}
