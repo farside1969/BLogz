@@ -1,42 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-    
-    {% if session['logged_in'] %}
-        <h1>
-            New BLoG:
-        </h1>
-        <form action="/newblog" method='post'>
-            <label>
-                BLoG Title:
-                <input id='blog_name' type='text' name='blog_name' />
-            </label>
-            <div>
-            </div>
-                {% if title_error %}
-                    <p class = "error">
-                        {{title_error}}
-                    </p>
-                {% endif %}
 
-            <hr />
+    <h1> {{ title }} </h1>
+    <h3> {{ welcome }} </h3>
+    <form method= 'POST'>
+        <label> BLoG title: <br>
+            <input type= "text" name= "title" value= "{{ newblog_title }}" />
+        </label>
+            <span class= "error"> {{ title_blank }} </span>
+            <br>
+            <br>
+        <label> BLoG text: <br>
+            <textarea name= "body">{{ newblog_body }}</textarea>
+        </label>
+            <span class= "error"> {{ body_blank }} </span>
+            <br>
+            <br>
+        <input type= 'submit' value= "Post BLoG" />
+    </form>
 
-            <label>
-                BLoG here:
-                <textarea id='blog' name='blog' >
-
-                </textarea>
-            </label>
-            {% if body_error %}
-                <p class = "error">
-                    {{body_error}}
-                </p>
-            {% endif %}
-            <input type='submit' value='Post It' />
-        </form>
-    {% else %}
-        <a href="/login.html">
-            Please Log In
-        </a>
-    {% endif %}
 {% endblock %}

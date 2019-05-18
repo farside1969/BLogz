@@ -2,22 +2,29 @@
 
 {% block content %}
 
-<title>
-    Realm of Logging In
-</title>
-<h1>
-    Please Log Your In
-</h1>
-<form method="post" action="/login">
-    <input type='text' placeholder='BLoGger Name' name='username' value='{{request.form.username}}'/>
-    <div>
-        <input type='password' placeholder='Password' name='password' value='{{request.form.password}}'/>
-    </div>
-    <div>
-        <button type="submit">
-            Log Me
-        </button>
-    </div>
+<h1>{{ title }}</h1>
+<form action="/login" method="post">
+    <table>
+        <tr>
+            <td>
+                <label for="username"> BLoGger Name: </label>
+            </td>
+            <td>
+                <input name="username" type="text" value="{{ username }}"/>
+                <span class= "error"> {{ name_error }} </span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="password"> Password: </label>
+            </td>
+            <td>
+                <input name="password" type="password"/>
+                <span class= "error"> {{ pass_error }} </span>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Login"/>
 </form>
 
 {% endblock %}

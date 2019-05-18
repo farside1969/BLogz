@@ -2,54 +2,38 @@
 
 {% block content %}
 
-<body>
-    <h1 style='text-align:center'>
-        BLoGger Signup
-    </h1>
-    <form method = "post" action = "/signup">
-        <div>
-            <label for = "username">
-                BLoGger Name:
-                <input id="username" type="text" name="username" />
-            </label>
-            {% if username_error %}
-                <p class = "error">
-                    {{username_error}}
-                </p>
-            {% endif %}
-        </div>
-        <div>
-            <label for = "password">
-                Password:
-                <input id="password" type="password" name="password" />
-            </label>
-        </div>
-        <div>
-            <label for = "password_verify">
-                Verify Password:
-                <input id="verify" type="password" name="verify" />
-            </label>
-            {% if password_error %}
-                <p class = "error">
-                    {{password_error}}
-                </p>
-            {% endif %}
-        </div>
-        <div>
-            <label for = "email">
-                Email:
-                <input id="email" type="text" name="email" />
-            </label>
-            {% if email_error %}
-                <p class = "error">
-                    {{email_error}}
-                </p>
-            {% endif %}
-        </div>
-        <div>
-            <input type="submit" value="Sign in"/>
-        </div>
-    </form>    
-</body>
+<h1>{{ title }}</h1>
+<form action="/signup" method="post">
+    <table>
+        <tr>
+            <td>
+                <label for="username" value="{{ username }}">BLoGger Name:</label>
+            </td>
+            <td>
+                <input name="username" type="text" value="{{ username }}"/>
+                <span class= "error"> {{ name_error }} </span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="password">Password:</label>
+            </td>
+            <td>
+                <input name="password" type="password"/>
+                <span class= "error"> {{ pass_error }} </span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="verify">Verify Password:</label>
+            </td>   
+            <td>
+                <input name="verify" type="password"/>
+                <span class= "error"> {{ verify_error }} </span>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Register">
+</form>
 
 {% endblock %}

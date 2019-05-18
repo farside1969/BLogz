@@ -1,15 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <title>
             {{title}}
         </title>
+        <style>
+            .error{
+                color: red;
+            }
+        </style>
     </head>
     <body>
+        <header>
+            <div>
+                <table>
+                    <tr>
+                        <td> <a href= '/blog'> Home </a> </td>
+                        <td> <a href= '/login'> Login </a> </td>
+                        <td> <a href= '/signup'> Register </a> </td>
+                        <td> <a href= '/singleUser'> BLoGgerz </a> </td>
+                        <td> <a href= '/newblog'> Add Post </a> </td>
+                        <td> <a href= '/logout'> Logout </a> </td>
+                         
+                    </tr>
+                </table>
+            </div>
+        </header>
+        <br>
+        <main>
 
-        {% block content %}
-    
-        {% endblock %}
+            {% block content %}
 
+            {% endblock %}
+
+        </main>
     </body>
 </html>
