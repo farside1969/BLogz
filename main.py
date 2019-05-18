@@ -2,38 +2,11 @@
 #you won't remember the flow or reasoning if you don't
 
 from flask import Flask, request, redirect, render_template, flash, session
-from flask_sqlalchemy import SQLAlchemy
+from app import app, db
+from models import Blog, User
+from hashutils import make_pw_hash, check_pw_hash
+import os
 
-app = Flask(__name__)
-app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Blogz:LaunchCode@localhost:8889/blogz'
-app.config['SQLALCHEMY_ECHO'] = True
-db = SQLAlchemy(app)
-app.secret_key = 'f8wv3w2f>v9j4sEuhcNYydAGMzzZJgkGgyHE9gUqaJcCk^f*^o7fQyBT%XtTvcYM'
-
-class Blog(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(128))
-    body = db.Column(db.String(1024))
-    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-    def __init__(self, title, body, owner):
-        self.title = title
-        self.body = body
-        self.owner = owner
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(128), unique=True)
-    password = db.Column(db.String(128))
-    blogs = db.relationship('Blog', backref='owner')
-
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
-
-    def __repr__(self):
-        return str(self.username)
 
 @app.before_request
 def require_login():
