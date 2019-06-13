@@ -100,6 +100,8 @@ def signup():
     
     if request.method == 'POST':
         username = request.form['username']
+#use when hash is active
+        #pw_hash = request.form['pw-hash']
         password = request.form['password']
         verify = request.form['verify']
 
