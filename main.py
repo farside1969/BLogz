@@ -83,8 +83,8 @@ def UserPosts():
         welcome = session['user'] + " is in the HOUSE!!!"
         user = request.args.get('user_link')
     
-    if user:
-        existing_user = User.query.filter_by(username= user).first()
+    if "user_link" in request.args:
+        existing_user = User.query.filter_by(username=request.args.get("user_link")).first()
         user_posts = existing_user.blogs
         return render_template("singleUser.html", welcome= welcome,
             title= user+"'s posts", blogs= user_posts)
